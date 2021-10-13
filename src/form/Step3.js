@@ -1,4 +1,5 @@
 import React from "react";
+import Slide from 'react-reveal';
 
 class Step3 extends React.Component {render() {
   if (this.props.currentStep !== 3) { // Prop: The current step
@@ -6,7 +7,7 @@ class Step3 extends React.Component {render() {
   }
   // The markup for the Step 1 UI
   return(
-    <div className="form-group">
+    <Slide right><div className="form-group">
       <label htmlFor="email">Email address</label>
       <input 
         className="form-control"
@@ -19,7 +20,7 @@ class Step3 extends React.Component {render() {
       />
             <button className="btn btn-success btn-block">Sign up</button>
 
-    </div>
+    </div></Slide>
   )}
 }
 

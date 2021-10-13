@@ -3,19 +3,22 @@ import ReactDom from 'react-dom';
 import Step1 from './Step1';
 import Step2 from './Step2';
 import Step3 from './Step3';
+import Slide from 'react-reveal';
+import Fade from 'react-reveal';
 
 class MasterForm extends React.Component {
   constructor(props) {
     super(props)
     // Set the initial input values
     this.state = {
+      isActive: false,
       currentStep: 1, // Default is Step 1
       email: '',
       username: '',
       password: '',
     }
 
-    // Bind the submission to handleChange() 
+    // Bind the submission to handleChange()
     this.handleChange = this.handleChange.bind(this)
     this._next = this._next.bind(this)
     this._prev = this._prev.bind(this)
@@ -95,35 +98,40 @@ class MasterForm extends React.Component {
   }
 
   render() {
+    const state = this.state;
     return (
       <React.Fragment>
-        <div className="MasterForm">
-        <h1>A Wizard Form!</h1>
+        <Slide left><div className="MasterForm">
+        <div className="progress" style={{width: '90%'}}>
+          <div className="progress-bar" role="progressbar" style={{width: ((1/3) * 100).toString() + '%'}} aria-valuenow="25" aria-valuemin="0" aria-valuemax="100">25%</div>
+        </div>
 
-        Step {this.state.currentStep}
+          <h1>A Wizard Form!</h1>
 
-        <form onSubmit={this.handleSubmit}>
+          Step {this.state.currentStep}
+
+          <form onSubmit={this.handleSubmit}>
 
               // Render the form steps and pass in the required props
-          <Step1
-            currentStep={this.state.currentStep}
-            handleChange={this.handleChange}
-            email={this.state.email}
-          />
-          <Step2
-            currentStep={this.state.currentStep}
-            handleChange={this.handleChange}
-            username={this.state.username}
-          />
-          <Step3
-            currentStep={this.state.currentStep}
-            handleChange={this.handleChange}
-            password={this.state.password}
-          />
-          {this.previousButton}
-          {this.nextButton}
-        </form>
-        </div>
+            <Step1
+              currentStep={this.state.currentStep}
+              handleChange={this.handleChange}
+              email={this.state.email}
+            />
+            <Step2
+              currentStep={this.state.currentStep}
+              handleChange={this.handleChange}
+              username={this.state.username}
+            />
+            <Step3
+              currentStep={this.state.currentStep}
+              handleChange={this.handleChange}
+              password={this.state.password}
+            />
+            {this.previousButton}
+            {this.nextButton}
+          </form>
+        </div></Slide>
       </React.Fragment>
     )
   }

@@ -1,26 +1,44 @@
+import React from 'react';
 import logo from './doubledoor.svg';
 import './App.css';
+import MasterForm from './form/MasterForm';
 import * as Realm from "realm-web";
+import Slide from 'react-reveal/Slide'
+class App extends React.Component {
+  constructor() {
+    super();
+    this.state = {
+      formActive: false,
+      appActive: true
+    };
+    this.enableForm = this.enableForm.bind(this);
+  }
 
-function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          A quick form example for Doubledoor/Amy Kwan by potential CTO Aaron Rohrbacher
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+  enableForm() {
+    this.setState({
+      formActive: true,
+      appActive: false
+    });
+  }
+
+  render() {
+    const enableForm = this.state;
+    return (
+      <div className="App">
+        <header className="App-header">
+          {this.state.appActive && <Slide><div>
+            <img src={logo} className="App-logo" alt="logo" />
+            <p>
+              A quick form example for Doubledoor/Amy Kwan by potential CTO Aaron Rohrbacher
+            </p>
+            <button onClick={this.enableForm}>Ckuc</button>
+          </div></Slide>}
+          {this.state.formActive && <MasterForm />}
+
+        </header>
+      </div>
+    )
+  }
 }
 
 export default App;
