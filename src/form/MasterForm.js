@@ -14,9 +14,11 @@ class MasterForm extends React.Component {
       isActive: false,
       currentStep: 1, // Default is Step 1
       email: '',
-      username: '',
-      password: '',
-      formErrors: { email: '' },
+      sellerType: '',
+      formErrors: {
+        email: '',
+        sellerType: ''
+      },
       emailValid: false,
       formValid: false
     }
@@ -40,12 +42,16 @@ class MasterForm extends React.Component {
 
   // Trigger an alert on form submission
   handleSubmit = (event) => {
-    event.preventDefault()
-    const { email, username, password } = this.state
+    event.preventDefault();
+    event.key === 'Enter' && event.preventDefault();
+    const { email, sellerType } = this.state
     alert(`Your registration detail: \n 
       Email: ${email} \n 
-      Username: ${username} \n
-      Password: ${password}`)
+      sellerType: ${sellerType}`)
+  }
+
+  handleKeyPress = (event) => {
+    event.key === 'Enter' && event.preventDefault();
   }
 
   // Test current step with ternary
@@ -148,20 +154,28 @@ class MasterForm extends React.Component {
             <Step1
               currentStep={this.state.currentStep}
               handleChange={this.handleChange}
+              handleKeyPress={this.handleKeyPress}
               email={this.state.email}
+              sellerType={this.state.sellerType}
+              formIsValid={this.state.formValid}
+              errorClass={this.errorClass}
+              formErrors={this.state.formErrors}
+
             />
             <Step2
               currentStep={this.state.currentStep}
               handleChange={this.handleChange}
               username={this.state.username}
+              email={this.state.email}
             />
             <Step3
               currentStep={this.state.currentStep}
               handleChange={this.handleChange}
-              password={this.state.password}
+              handleKeyPress={this.handleKeyPress}
               formIsValid={this.state.formValid}
               errorClass={this.errorClass}
               formErrors={this.state.formErrors}
+              email={this.state.email}
             />
             {this.previousButton}
             {this.nextButton}
