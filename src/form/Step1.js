@@ -1,7 +1,16 @@
 import React from "react";
 import Slide from 'react-reveal';
 
-class Step1 extends React.Component {render() {
+class Step1 extends React.Component {
+  constructor(props) {
+    super(props)
+    this.state = {
+    }
+  }
+
+
+  
+  render() {
   if (this.props.currentStep !== 1) { // Prop: The current step
     return null
   }

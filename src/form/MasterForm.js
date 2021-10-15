@@ -16,12 +16,16 @@ class MasterForm extends React.Component {
       email: '',
       username: '',
       password: '',
+      formErrors: { email: '' },
+      emailValid: false,
+      formValid: false
     }
 
     // Bind the submission to handleChange()
     this.handleChange = this.handleChange.bind(this)
     this._next = this._next.bind(this)
     this._prev = this._prev.bind(this)
+    this.errorClass = this.errorClass.bind(this)
   }
 
   // Use the submitted data to set the state
@@ -29,7 +33,9 @@ class MasterForm extends React.Component {
     const { name, value } = event.target
     this.setState({
       [name]: value
-    })
+    }, () => {
+      this.validateField(name, value)
+    });
   }
 
   // Trigger an alert on form submission
@@ -97,14 +103,40 @@ class MasterForm extends React.Component {
     return null;
   }
 
+  validateField(fieldName, value) {
+    let fieldValidationErrors = this.state.formErrors;
+    let emailValid = this.state.emailValid;
+
+    switch (fieldName) {
+      case 'email':
+        emailValid = value.match(/^([\w.%+-]+)@([\w-]+\.)+([\w]{2,})$/i);
+        fieldValidationErrors.email = emailValid ? '' : ' is invalid';
+        break;
+      default:
+        break;
+    }
+    this.setState({
+      formErrors: fieldValidationErrors,
+      emailValid: emailValid,
+    }, this.validateForm);
+  }
+
+  validateForm() {
+    this.setState({ formValid: this.state.emailValid && true == true });
+  }
+
+  errorClass(error) {
+    return (error.length === 0 ? '' : 'is-invalid');
+  }
+
   render() {
     const state = this.state;
     return (
       <React.Fragment>
         <Slide left><div className="MasterForm">
-        <div className="progress" style={{width: '90%'}}>
-          <div className="progress-bar" role="progressbar" style={{width: ((1/3) * 100).toString() + '%'}} aria-valuenow="25" aria-valuemin="0" aria-valuemax="100">25%</div>
-        </div>
+          <div className="progress" style={{ width: '90%' }}>
+            <div className="progress-bar" role="progressbar" style={{ width: ((1 / 3) * 100).toString() + '%' }} aria-valuenow="25" aria-valuemin="0" aria-valuemax="100">25%</div>
+          </div>
 
           <h1>A Wizard Form!</h1>
 
@@ -127,9 +159,13 @@ class MasterForm extends React.Component {
               currentStep={this.state.currentStep}
               handleChange={this.handleChange}
               password={this.state.password}
+              formIsValid={this.state.formValid}
+              errorClass={this.errorClass}
+              formErrors={this.state.formErrors}
             />
             {this.previousButton}
             {this.nextButton}
+
           </form>
         </div></Slide>
       </React.Fragment>
