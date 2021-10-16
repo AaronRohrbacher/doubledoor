@@ -20,7 +20,9 @@ class MasterForm extends React.Component {
         sellerType: ''
       },
       emailValid: false,
-      formValid: false
+      sellerTypeValid: false,
+      formValid: false,
+      stepValid: false
     }
 
     // Bind the submission to handleChange()
@@ -30,13 +32,16 @@ class MasterForm extends React.Component {
     this.errorClass = this.errorClass.bind(this)
   }
 
+
+
   // Use the submitted data to set the state
   handleChange(event) {
+    event.preventDefault();
     const { name, value } = event.target
     this.setState({
       [name]: value
     }, () => {
-      this.validateField(name, value)
+      this.validateField(name, value);
     });
   }
 
@@ -94,12 +99,22 @@ class MasterForm extends React.Component {
 
   get nextButton() {
     let currentStep = this.state.currentStep;
+    let stepValid = () => {
+      if (this.state.currentStep == 1) {
+       return this.state.emailValid && this.state.sellerTypeValid;
+      } else if (this.state.currentStep == 2) {
+        return false;
+      }
+    }
+
     // If the current step is not 3, then render the "next" button
     if (currentStep < 3) {
       return (
         <button
           className="btn btn-primary float-right"
           type="button"
+          disabled={!stepValid()}
+          onChange={this.stepValid}
           onClick={this._next}>
           Next
         </button>
@@ -109,14 +124,24 @@ class MasterForm extends React.Component {
     return null;
   }
 
+  validateStep(fields) {
+    fields.each((field) => {
+      this.validateField(field);
+    })
+  }
+
   validateField(fieldName, value) {
     let fieldValidationErrors = this.state.formErrors;
     let emailValid = this.state.emailValid;
-
+    let sellerTypeValid = this.state.sellerTypeValid;
     switch (fieldName) {
       case 'email':
         emailValid = value.match(/^([\w.%+-]+)@([\w-]+\.)+([\w]{2,})$/i);
         fieldValidationErrors.email = emailValid ? '' : ' is invalid';
+        break;
+      case 'sellerType':
+        sellerTypeValid = value > 0;
+        fieldValidationErrors.sellerType = sellerTypeValid ? '' : ' is invalid';
         break;
       default:
         break;
@@ -124,11 +149,16 @@ class MasterForm extends React.Component {
     this.setState({
       formErrors: fieldValidationErrors,
       emailValid: emailValid,
+      sellerTypeValid: sellerTypeValid
     }, this.validateForm);
+
   }
 
   validateForm() {
-    this.setState({ formValid: this.state.emailValid && true == true });
+    this.setState({
+      formValid: this.state.emailValid &&
+        this.state.sellerTypeValid
+    });
   }
 
   errorClass(error) {
@@ -154,6 +184,7 @@ class MasterForm extends React.Component {
             <Step1
               currentStep={this.state.currentStep}
               handleChange={this.handleChange}
+              stepValid={this.stepValid}
               handleKeyPress={this.handleKeyPress}
               email={this.state.email}
               sellerType={this.state.sellerType}

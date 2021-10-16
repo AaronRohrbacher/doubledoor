@@ -2,6 +2,9 @@ import React from "react";
 import Slide from 'react-reveal';
 
 class Step1 extends React.Component {
+  step1Fields() {
+    return []
+  }
 
   render() {
     if (this.props.currentStep !== 1) { // Prop: The current step
@@ -13,7 +16,7 @@ class Step1 extends React.Component {
         <label htmlFor="email">Email address</label>
         <input
           onKeyPress={this.props.handleKeyPress}
-          className="form-control"
+          className={`form-control ${this.props.errorClass(this.props.formErrors.email)}`}
           id="email"
           name="email"
           type="text"
