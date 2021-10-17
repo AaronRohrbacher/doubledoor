@@ -2,9 +2,6 @@ import React from "react";
 import Slide from 'react-reveal';
 
 class Step1 extends React.Component {
-  step1Fields() {
-    return []
-  }
 
   render() {
     if (this.props.currentStep !== 1) { // Prop: The current step
@@ -38,6 +35,20 @@ class Step1 extends React.Component {
           <option value="2">Listing Agent</option>
           <option value="3">Trustee</option>
           <option value="4">Director of a Company</option>
+        </select>
+        <label htmlFor="occupancy">Occupancy Status</label>
+        <select 
+          className={`form-select form-select-lg mb-3 ${this.props.errorClass(this.props.formErrors.occupancy)}`}
+          aria-label=".form-select-lg example" 
+          id="occupancy" 
+          name="occupancy"
+          value={this.props.occupancy}
+          onChange={this.props.handleChange}
+        >
+          <option value="0">Select...</option>
+          <option value="1">Tenant Occupied</option>
+          <option value="2">Vacant</option>
+          <option value="3">Owner Occupied</option>
         </select>
       </div></Slide>
     )
