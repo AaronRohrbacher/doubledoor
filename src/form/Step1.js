@@ -31,7 +31,7 @@ class Step1 extends React.Component {
           value={this.props.sellerType}
           onChange={this.props.handleChange}
         >
-          <option value="0">Select...</option
+          <option value="0">Select...</option>
           <option value="1">Seller/Property Owner</option>
           <option value="2">Listing Agent</option>
           <option value="3">Trustee</option>
