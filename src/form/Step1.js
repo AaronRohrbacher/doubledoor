@@ -10,20 +10,21 @@ class Step1 extends React.Component {
     // The markup for the Step 1 UI
     return (
       <Slide right><div className="form-group">
+        
         <label htmlFor="email">Email address</label>
         <input
           onKeyPress={this.props.handleKeyPress}
-          className={`form-control ${this.props.errorClass(this.props.formErrors.email)}`}
+          className={`form-control-lg form-control ${this.props.errorClass(this.props.formErrors.email)}`}
           id="email"
           name="email"
           type="text"
-          placeholder="Enter email"
+          placeholder="Enter Your E-mail Address"
           value={this.props.email} // Prop: The email input data
           onChange={this.props.handleChange} // Prop: Puts data into state
         />
         <label htmlFor="sellerType">I am a...</label>
         <select 
-          className={`form-select form-select-lg mb-3 ${this.props.errorClass(this.props.formErrors.sellerType)}`}
+          className={`form-control-lg form-control ${this.props.errorClass(this.props.formErrors.sellerType)}`}
           aria-label=".form-select-lg example" 
           id="sellerType" 
           name="sellerType"
@@ -38,7 +39,7 @@ class Step1 extends React.Component {
         </select>
         <label htmlFor="occupancy">Occupancy Status</label>
         <select 
-          className={`form-select form-select-lg mb-3 ${this.props.errorClass(this.props.formErrors.occupancy)}`}
+          className={`form-control-lg form-control ${this.props.errorClass(this.props.formErrors.occupancy)}`}
           aria-label=".form-select-lg example" 
           id="occupancy" 
           name="occupancy"
