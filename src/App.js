@@ -31,10 +31,9 @@ class App extends React.Component {
             <p>
               A "mobile-first" form example for Doubledoor Technologies and Amy Kwan by CTO candidate Aaron Rohrbacher
             </p>
-            <button onClick={this.enableForm}>Ckuc</button>
+            <button className="btn btn-primary" onClick={this.enableForm}>Get Started</button>
           </div></Slide>}
           {this.state.formActive && <MasterForm />}
-
         </header>
       </div>
     )
