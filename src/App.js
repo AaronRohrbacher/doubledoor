@@ -29,7 +29,7 @@ class App extends React.Component {
           {this.state.appActive && <Slide><div>
             <img src={logo} className="App-logo" alt="logo" />
             <p>
-              A quick form example for Doubledoor/Amy Kwan by potential CTO Aaron Rohrbacher
+              A "mobile-first" form example for Doubledoor Technologies and Amy Kwan by CTO candidate Aaron Rohrbacher
             </p>
             <button onClick={this.enableForm}>Ckuc</button>
           </div></Slide>}
