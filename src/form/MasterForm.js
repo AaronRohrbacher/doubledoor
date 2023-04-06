@@ -4,6 +4,7 @@ import Step2 from './Step2';
 import Step3 from './Step3';
 import FormComplete from './FormComplete';
 import Slide from 'react-reveal';
+import { getUserBudgets } from '../services/budgetService';
 
 class MasterForm extends React.Component {
   constructor(props) {
@@ -305,6 +306,7 @@ class MasterForm extends React.Component {
               errorClass={this.errorClass}
               formErrors={this.state.formErrors}
               occupancy={this.state.occupancy}
+              budgets={this.state.budgets}
             />
             <Step2
               currentStep={this.state.currentStep}

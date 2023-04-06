@@ -4,6 +4,10 @@ import './App.css';
 import MasterForm from './form/MasterForm';
 import * as Realm from "realm-web";
 import Slide from 'react-reveal/Slide'
+import { getUserBudgets } from './services/budgetService';
+
+
+
 class App extends React.Component {
   constructor() {
     super();
